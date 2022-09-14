@@ -33,7 +33,15 @@ function AddPersonForm(props){
 
 function PeopleList(props){
   const arr = props.data;
-  const listItems = arr.map((val, index) => <li key={index}>{val}</li>);
+  function handleClick(l){
+    if (l.target.classList.contains('readonly')){
+      l.target.removeAttribute('readonly');
+    }
+    else if(!l.target.classList.contains('readonly')){
+      l.target.setAttribute('readonly','readonly');
+    }
+  }
+  const listItems = arr.map((val, index) => <li key={index}><input class='contact' type='text' value={val} readonly></input><button type='submit' class='btn btn-dark btn-sm' onClick={handleClick}>Edit</button><button type='submit' class='btn btn-dark btn-sm'>Delete Contact</button></li>);
   return <div><ul>{listItems}</ul></div>;
 }
 
