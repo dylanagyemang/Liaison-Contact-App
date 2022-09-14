@@ -4,16 +4,22 @@ import './index.css';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function AddPersonForm(){
-  const [person, setPerson] = useState("");
+function AddPersonForm(props){
+  const [person, setPerson] = useState('');
 
   function handleChange(l){
     setPerson(l.target.value);
   }
 
   function handleSubmit(l){
+    if (person == ''){
+      alert("Contact information can't be empty!");
+    }
+    if (person !== '') {
+    props.handleSubmit(person);
+    setPerson('');
+    }
     l.preventDefault();
-    alert("Contact information can't be empty!");
   }
 
   return (
@@ -31,23 +37,33 @@ function PeopleList(props){
   return <div><ul>{listItems}</ul></div>;
 }
 
-function ContactMangaer(props){
+function ContactManager(props){
   const [contacts, setContacts] = useState(props.data);
+
+  function addPerson(name) {
+    setContacts([...contacts, name]);
+  }
 
   return(
     <div>
-      <AddPersonForm />
+      <AddPersonForm handleSubmit={addPerson} />
       <PeopleList data={contacts} />
     </div>
-  )
+  );
+}
+
+function Search (props){
+  const [val, setVal] = useState('');
+  return <div>
+  <input type='text' value={val} /> <button type='submit' class='btn btn-dark btn-sm'>Search</button>
+  </div>
 }
 
 const contacts = ["Dylan Agyemang", "John Doe", "Jane Doe"]
 
 const act = (
   <div class='container'>
-    <AddPersonForm />
-    <PeopleList data={contacts} />
+    <ContactManager data={contacts} />
   </div>
 )
 

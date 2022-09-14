@@ -20,6 +20,7 @@ code {
 }
 form {
   margin:1rem;
+  display:inline;
   align-items: center !important;
 }
 ul{
@@ -32,6 +33,7 @@ ul{
   background-color: rgb(16, 95, 85);
 }
 input{
+  vertical-align: middle;
   color: aliceblue;
   border-radius: .5rem;
 }
@@ -44,4 +46,9 @@ h1{
   font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
   text-shadow: 2px 2px #f0f2f7;
   color: azure;
+}
+button{
+  box-shadow: 1px 1px #474747;
+  border: rgb(81, 94, 94) !important;
+  border-style: groove !important;
 }
