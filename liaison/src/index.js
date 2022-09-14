@@ -33,15 +33,18 @@ function AddPersonForm(props){
 
 function PeopleList(props){
   const arr = props.data;
-  function handleClick(l){
-    if (l.target.classList.contains('readonly')){
-      l.target.removeAttribute('readonly');
+  function handleChange(l){
+    let value = l.target.value;
+  }
+  function handleClick(){
+    if (listItems.target.hasAttribute('readonly')){
+      listItems.target.removeAttribute('readonly');
     }
-    else if(!l.target.classList.contains('readonly')){
-      l.target.setAttribute('readonly','readonly');
+    else if(!listItems.target.hasAttribute('readonly')){
+      listItems.target.setAttribute('readonly','readonly');
     }
   }
-  const listItems = arr.map((val, index) => <li key={index}><input class='contact' type='text' value={val} readonly></input><button type='submit' class='btn btn-dark btn-sm' onClick={handleClick}>Edit</button><button type='submit' class='btn btn-dark btn-sm'>Delete Contact</button></li>);
+  const listItems = arr.map((val, index) => <li key={index}><input class='contact' type='text' value={val} onChange={handleChange} readonly></input><button type='buttton' class='btn btn-dark btn-sm' onClick={handleClick}>Edit</button><button type='submit' class='btn btn-dark btn-sm'>Delete Contact</button></li>);
   return <div><ul>{listItems}</ul></div>;
 }
 
