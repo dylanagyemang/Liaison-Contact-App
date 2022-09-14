@@ -4,32 +4,52 @@ import './index.css';
 //import App from './App';
 import reportWebVitals from './reportWebVitals';
 
-function Timer(){
-  const [count, setCount] = useState(0);
-  return (<div class='container'>
-  <p>{count}</p> <button type='button' class= 'btn btn-warning btn-sm' onClick={()=> setCount(count+1)}>Increase</button>
-  </div>
+function AddPersonForm(){
+  const [person, setPerson] = useState("");
+
+  function handleChange(l){
+    setPerson(l.target.value);
+  }
+
+  function handleSubmit(l){
+    l.preventDefault();
+    alert("Contact information can't be empty!");
+  }
+
+  return (
+      <div class='container'>
+        <form onSubmit={handleSubmit}>
+          <input type='text' placeholder='Add new contact' onChange={handleChange} value={person} /> <button type='submit' class='btn btn-dark btn-sm'>Add Contact</button>
+        </form>
+      </div>
   );
 }
 
-class Clout extends React.Component{
-  state = {
-    coun : 0
-  }
-  inc = () => {
-    this.setState({coun:this.state.coun+1});
-  }
-  componentDidMount(){
-    this.setState({coun:66});
-  }
-  render(){
-    return <div class='container>'>
-    <p>{this.state.coun}</p><button type='button' class='btn btn-primary btn-sm' onClick={this.inc}>Increase</button>
-    </div>;
-  }
+function PeopleList(props){
+  const arr = props.data;
+  const listItems = arr.map((val, index) => <li key={index}>{val}</li>);
+  return <div><ul>{listItems}</ul></div>;
 }
 
+function ContactMangaer(props){
+  const [contacts, setContacts] = useState(props.data);
 
-const cnt = <Clout />
-ReactDOM.createRoot(document.getElementById('root')).render(cnt,document.getElementById('root'));
+  return(
+    <div>
+      <AddPersonForm />
+      <PeopleList data={contacts} />
+    </div>
+  )
+}
+
+const contacts = ["Dylan Agyemang", "John Doe", "Jane Doe"]
+
+const act = (
+  <div class='container'>
+    <AddPersonForm />
+    <PeopleList data={contacts} />
+  </div>
+)
+
+ReactDOM.createRoot(document.getElementById('root')).render(act, document.getElementById('root'));
 reportWebVitals();
