@@ -6,6 +6,7 @@ import reportWebVitals from './reportWebVitals';
 
 function AddPersonForm(props){
   const [person, setPerson] = useState('');
+  const [readO, setReadO] = useState(true)
 
   function handleChange(l){
     setPerson(l.target.value);
@@ -33,20 +34,32 @@ function AddPersonForm(props){
 
 function PeopleList(props){
   const arr = props.data;
+  
   function handleChange(l){
-    let value = l.target.value;
+    let cont = document.getElementById('contact');
+    cont.value = l.target.value;
+    
   }
   function handleClick(){
-    if (listItems.target.hasAttribute('readonly')){
-      listItems.target.removeAttribute('readonly');
+    let list = document.getElementById('list');
+    let cont = document.getElementById('contact');
+    if (cont.hasAttribute('readOnly')){
+      cont.removeAttribute('readOnly');
+      console.log('true')
     }
-    else if(!listItems.target.hasAttribute('readonly')){
-      listItems.target.setAttribute('readonly','readonly');
-    }
+    // console.log(l.target.hasAttribute('id')==='list');
+    // if (con == true){
+    //   l.target.removeAttribute('readOnly');
+    // }
+    // else if(!con){
+    //   l.target.setAttribute('readOnly','readOnly');
+    // }
+    //setReadO(readO => !readO)
   }
-  const listItems = arr.map((val, index) => <li key={index}><input class='contact' type='text' value={val} onChange={handleChange} readonly></input><button type='buttton' class='btn btn-dark btn-sm' onClick={handleClick}>Edit</button><button type='submit' class='btn btn-dark btn-sm'>Delete Contact</button></li>);
-  return <div><ul>{listItems}</ul></div>;
+  const listItems = arr.map((val, index) => <li id='list' key={index}><input id='contact' class='contact' type='text' value={val} onChange={handleChange} readOnly ></input><button type='buttton' id='edit' class='btn btn-dark btn-sm' onClick={handleClick}>Edit</button><button type='submit' class='btn btn-dark btn-sm' onClick={(e) => this.deleteRow(this.id, this.list)}>Delete Contact</button></li>);
+  return <div id='wlist'><ul>{listItems}</ul></div>;
 }
+
 
 function ContactManager(props){
   const [contacts, setContacts] = useState(props.data);
@@ -77,6 +90,26 @@ const act = (
     <ContactManager data={contacts} />
   </div>
 )
+
+let editb = document.getElementById('edit');
+let con = document.getElementById('contact');
+let contactList = document.getElementById('wlist');
+let liste = document.getElementById('list');
+/*
+editb.addEventListener('click',function(){
+  if (con.hasAttribute('readonly')) {
+    con.removeAttribute('readonly');
+    editb.innerText = "Save";
+    }
+   else if (!con.value){
+     contactList.removeChild(liste);
+ } 
+    else if (!con.hasAttribute('readonly')){
+        con.setAttribute('readonly','readonly');
+        editb.innerText = "Edit";
+}
+})*/
+
 
 ReactDOM.createRoot(document.getElementById('root')).render(act, document.getElementById('root'));
 reportWebVitals();
